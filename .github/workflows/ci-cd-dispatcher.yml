@@ -36,14 +36,6 @@ on:
         description: Optional version override
         type: string
         required: false
-      licenseType:
-        description: "Unity license type (personal/professional)"
-        required: false
-        default: personal
-        type: choice
-        options:
-          - personal
-          - professional
   # Automatically run tests & builds on certain branches or PR changes
   push:
     tags:
@@ -110,7 +102,7 @@ jobs:
 
       - name: Validate Required GitHub Secrets
         run: |
-          LICENSE_TYPE="${{ inputs.licenseType }}"
+          LICENSE_TYPE="${{ needs.prepare_metadata.outputs.licenseType }}"
           if [[ -z "$LICENSE_TYPE" ]]; then
             LICENSE_TYPE="personal"
           fi
