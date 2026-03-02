@@ -69,7 +69,7 @@ jobs:
           echo "editModePath=$(echo "$testData" | jq -r .editModePath)" >> "$GITHUB_OUTPUT"
           echo "playModePath=$(echo "$testData" | jq -r .playModePath)" >> "$GITHUB_OUTPUT"
           echo "quietMode=$(echo "$testData" | jq -r .quietMode)" >> "$GITHUB_OUTPUT"
-          echo "licenseType=$(echo "$testData" | jq -r .licenseType)" >> "$GITHUB_OUTPUT"
+          echo "licenseType=$(echo "$testData" | jq -r '.licenseType // "personal"')" >> "$GITHUB_OUTPUT"
 
           # Metadata Config
           echo "projectName=$(echo "$meta" | jq -r .projectName)" >> "$GITHUB_OUTPUT"
