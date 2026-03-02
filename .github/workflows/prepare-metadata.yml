@@ -76,6 +76,8 @@ on:
         value: ${{ jobs.prepare_metadata.outputs.requiresCombined || false }}
       skipPerBuildTarget:
         value: ${{ jobs.prepare_metadata.outputs.skipPerBuildTarget || false }}
+      licenseType:
+        value: ${{ jobs.prepare_metadata.outputs.licenseType }}
 
 jobs:
   prepare_metadata:
@@ -105,6 +107,7 @@ jobs:
       skipTests: ${{ steps.skip_tests.outputs.skipTests }}
       excludeUnityTests: ${{ steps.metadata.outputs.excludeUnityTests }}
       forceCombineArtifacts: ${{ steps.metadata.outputs.forceCombineArtifacts  }}
+      licenseType: ${{ steps.metadata.outputs.licenseType }}
     steps:
       - name: 📁 Checkout .github only
         uses: actions/checkout@v4
@@ -137,6 +140,7 @@ jobs:
           playModePathRepoVar: ${{ vars.UNITY_TESTS_PLAYMODE_PATH }}
           quietModeRepoVar: ${{ vars.UNITY_TESTS_QUIET_MODE }}
           excludeUnityTestsRepoVar: ${{ vars.EXCLUDE_UNITY_TESTS }}
+          licenseTypeRepoVar: ${{ vars.LICENSE_TYPE }}
 
       - name: ✅ Validate Build Targets For Pipeline Intent
         env:
@@ -217,3 +221,4 @@ jobs:
       validDeployTargets: ${{ needs.prepare_metadata.outputs.deployTargets || '[]' }}
       requiresCombined: ${{ needs.prepare_metadata.outputs.requiresCombined || false }}
       skipPerBuildTarget: ${{ needs.prepare_metadata.outputs.skipPerBuildTarget || false }}
+      licenseType: ${{ needs.prepare_metadata.outputs.licenseType }}
