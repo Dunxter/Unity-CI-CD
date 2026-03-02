@@ -162,6 +162,7 @@ jobs:
       buildTargets: ${{ inputs.buildTargets }}
       buildType: ${{ inputs.buildType }}
       buildVersion: ${{ inputs.buildVersion }}
+      licenseType: ${{ inputs.licenseType }}
 
   tagging:
     name: Create or Verify Tag

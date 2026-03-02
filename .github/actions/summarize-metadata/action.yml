@@ -8,7 +8,7 @@ inputs:
   quietMode: { required: true, type: string }
   excludeUnityTests: { required: true, type: string }
   forceCombineArtifacts: { required: true, type: string }
-  licenseType: {required: true, type: string}
+  licenseType: {required: true, type: string }
   projectName: { required: true, type: string }
   playModePath: { required: true, type: string }
   editModePath: { required: true, type: string }
