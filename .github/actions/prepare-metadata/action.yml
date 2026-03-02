@@ -138,7 +138,7 @@ runs:
 
     - name: ⚙️ Resolve CI Options
       id: ci_options
-      uses: avalin/unity-ci-cd/.github/actions/resolve-ci-config@main
+      uses: dunxter/unity-ci-cd/.github/actions/resolve-ci-config@main
       with:
         useGitLfsInput: ${{ inputs.useGitLfsInput }}
         useGitLfsRepoVar: ${{ inputs.useGitLfsRepoVar }}
