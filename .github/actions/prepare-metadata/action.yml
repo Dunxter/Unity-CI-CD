@@ -148,7 +148,7 @@ runs:
         excludeUnityTestsRepoVar: ${{ inputs.excludeUnityTestsRepoVar }}
         forceCombineArtifactsInput: ${{ inputs.forceCombineArtifactsInput }}
         forceCombineArtifactsRepoVar: ${{ inputs.forceCombineArtifactsRepoVar }}
-        licenseTypeInputInput: ${{ inputs.licenseTypeInput }}
+        licenseTypeInput: ${{ inputs.licenseTypeInput }}
         licenseTypeRepoVar: ${{ inputs.licenseTypeRepoVar }}
 
     - name: 📦 Resolve Test Config

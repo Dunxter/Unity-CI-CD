@@ -204,10 +204,6 @@ jobs:
           path: ${{ inputs.projectName }}-${{ inputs.buildVersion }}/* # The '/*' ensures the content is zipped to the folder, not the entire folder
           retention-days: ${{ inputs.retentionDays }}
 
-      - name: Return Professional license # Manually returning a license is usually never necessary, unless when running into an unrecoverable error while having a license active.
-        uses: game-ci/unity-return-license@v2
-        if: ${{ inputs.licenseType == 'professional'}}
-
   combine_builds:
     if: ${{ inputs.combineArtifacts == 'true' }}
     needs: [ build_targets ]
