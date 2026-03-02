@@ -3,6 +3,7 @@
     "useGitLfs": false,
     "forceCombineArtifacts": false,
     "excludeUnityTests": false,
-    "quietMode": false
+    "quietMode": false,
+    "licenseType": "personal"
   }
 }

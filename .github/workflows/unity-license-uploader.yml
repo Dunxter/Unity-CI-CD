@@ -6,10 +6,15 @@ on:
       runnerMain:
         required: true
         type: string
+      licenseType:
+          description: "Unity license type (personal/professional)"
+          required: true
+          type: string
 
 jobs:
-  activate-license:
-    name: Activate Unity License
+  activate-personal-license:
+    name: Activate Personal Unity License
+    if: ${{ inputs.licenseType == 'personal'}}
     runs-on: ${{ inputs.runnerMain }}
     defaults:
       run:
@@ -45,3 +50,22 @@ jobs:
           name: unity-license
           path: license/Unity_lic.ulf
           retention-days: 3
+
+  activate-professional-license:
+      name: Activate Professional Unity License
+      if: ${{ inputs.licenseType == 'professional'}}
+      runs-on: ${{ inputs.runnerMain }}
+      defaults:
+        run:
+          shell: bash
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Activate Unity License
+          id: activate
+          uses: game-ci/unity-activate@v2
+          env:
+            UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+            UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+            UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}

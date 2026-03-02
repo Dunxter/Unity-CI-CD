@@ -32,6 +32,10 @@ inputs:
     required: false
   forceCombineArtifactsRepoVar:
     required: false
+  licenseTypeInput:
+    required: false
+  licenseTypeRepoVar:
+    required: false
 
   # Test-specific
   editModePathInput:
@@ -108,6 +112,8 @@ outputs:
     value: ${{ steps.ci_options.outputs.forceCombineArtifacts }}
   excludeUnityTests:
     value: ${{ steps.ci_options.outputs.excludeUnityTests }}
+  licenseType:
+    value: ${{ steps.ci_options.outputs.licenseType }}
 
 runs:
   using: composite
@@ -142,6 +148,8 @@ runs:
         excludeUnityTestsRepoVar: ${{ inputs.excludeUnityTestsRepoVar }}
         forceCombineArtifactsInput: ${{ inputs.forceCombineArtifactsInput }}
         forceCombineArtifactsRepoVar: ${{ inputs.forceCombineArtifactsRepoVar }}
+        licenseTypeInputInput: ${{ inputs.licenseTypeInput }}
+        licenseTypeRepoVar: ${{ inputs.licenseTypeRepoVar }}
 
     - name: 📦 Resolve Test Config
       id: test_config

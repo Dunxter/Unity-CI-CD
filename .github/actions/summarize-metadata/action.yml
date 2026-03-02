@@ -8,6 +8,7 @@ inputs:
   quietMode: { required: true, type: string }
   excludeUnityTests: { required: true, type: string }
   forceCombineArtifacts: { required: true, type: string }
+  licenseType: {required: true, type: string}
   projectName: { required: true, type: string }
   playModePath: { required: true, type: string }
   editModePath: { required: true, type: string }
@@ -50,6 +51,7 @@ runs:
         echo "| Quiet Mode              | ${{ inputs.quietMode }} |" >> $GITHUB_STEP_SUMMARY
         echo "| Skip Unity Tests        | ${{ inputs.excludeUnityTests }} |" >> $GITHUB_STEP_SUMMARY
         echo "| Force Combine Artifacts | ${{ inputs.forceCombineArtifacts }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| License Type            | ${{ inputs.licenseType }} |" >> $GITHUB_STEP_SUMMARY
 
         echo "" >> $GITHUB_STEP_SUMMARY
 

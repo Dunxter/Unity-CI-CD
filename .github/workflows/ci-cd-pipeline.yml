@@ -55,6 +55,7 @@ jobs:
       checkFreeDiskSpace: ${{ steps.unpack.outputs.checkFreeDiskSpace }}
       checkFreeDiskSpaceCustomTargets: ${{ steps.unpack.outputs.checkFreeDiskSpaceCustomTargets }}
       quietMode: ${{ steps.unpack.outputs.quietMode }}
+      licenseType: ${{ steps.unpack.outputs.licenseType }}
     steps:
       - id: unpack
         run: |
@@ -68,6 +69,7 @@ jobs:
           echo "editModePath=$(echo "$testData" | jq -r .editModePath)" >> "$GITHUB_OUTPUT"
           echo "playModePath=$(echo "$testData" | jq -r .playModePath)" >> "$GITHUB_OUTPUT"
           echo "quietMode=$(echo "$testData" | jq -r .quietMode)" >> "$GITHUB_OUTPUT"
+          echo "licenseType=$(echo "$testData" | jq -r .licenseType)" >> "$GITHUB_OUTPUT"
 
           # Metadata Config
           echo "projectName=$(echo "$meta" | jq -r .projectName)" >> "$GITHUB_OUTPUT"
@@ -101,10 +103,12 @@ jobs:
       playModePath: ${{ needs.unpack_inputs.outputs.playModePath }}
       timeoutMinutes: ${{ fromJson(needs.unpack_inputs.outputs.timeoutMinutesTests) }}
       quietMode: ${{ needs.unpack_inputs.outputs.quietMode }}
+      licenseType: ${{ needs.unpack_inputs.outputs.licenseType }}
     secrets:
       UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
       UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
 
   # ─────────────────────────────────────────────────────────────────────────────
   # 2. Build
@@ -133,10 +137,12 @@ jobs:
       retentionDays: ${{ fromJson(needs.unpack_inputs.outputs.retentionDays) }}
       checkFreeDiskSpace: ${{ needs.unpack_inputs.outputs.checkFreeDiskSpace }}
       checkFreeDiskSpaceCustomTargets: ${{ needs.unpack_inputs.outputs.checkFreeDiskSpaceCustomTargets }}
+      licenseType: ${{ needs.unpack_inputs.outputs.licenseType }}
     secrets:
       UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
       UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
       UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
 
   # ─────────────────────────────────────────────────────────────────────────────
   # 3. Release

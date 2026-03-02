@@ -1,5 +1,5 @@
 name: Resolve CI Config
-description: Resolves pipeline-wide CI flags (Git LFS, quiet-mode, exclude tests, combine artifacts) from inputs, repo vars, project defaults, or action fallbacks.
+description: Resolves pipeline-wide CI flags (Git LFS, quiet-mode, exclude tests, combine artifacts, Unity license type) from inputs, repo vars, project defaults, or action fallbacks.
 
 inputs:
   useGitLfsInput:
@@ -35,6 +35,13 @@ inputs:
     required: false
     default: .github/config/defaults.json
 
+  licenseTypeInput:
+    description: "Unity license type (personal/professional)"
+    required: false
+  licenseTypeRepoVar:
+    description: Repo-var fallback for licenseType
+    required: false
+
 outputs:
   useGitLfs:
     description: Resolved useGitLfs flag
@@ -48,6 +55,9 @@ outputs:
   forceCombineArtifacts:
     description: Resolved forceCombineArtifacts flag
     value: ${{ steps.resolve.outputs.forceCombineArtifacts }}
+  licenseType:
+    description: Resolved licenseType flag
+    value: ${{ steps.resolve.outputs.licenseType }}
 
 runs:
   using: composite
@@ -69,6 +79,8 @@ runs:
         FORCE_COMBINE_ARTIFACTS_INPUT:    ${{ inputs.forceCombineArtifactsInput }}
         FORCE_COMBINE_ARTIFACTS_REPO_VAR: ${{ inputs.forceCombineArtifactsRepoVar }}
         PROJECT_DEFAULTS_FILE:            ${{ inputs.projectDefaultsFile }}
+        LICENSE_TYPE_INPUT:               ${{ inputs.licenseTypeInput }}
+        LICENSE_TYPE_REPO_VAR:            ${{ inputs.licenseTypeRepoVar }}
         ACTION_DEFAULTS_FILE:             ${{ github.action_path }}/defaults.json
       run: |
         chmod +x "${{ github.action_path }}/resolve-ci-config.sh" 

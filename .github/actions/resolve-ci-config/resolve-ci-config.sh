@@ -27,11 +27,13 @@ PROJECT_USE_GIT_LFS=$(echo "$PROJECT_DEFAULTS" | jq -r '.pipeline.useGitLfs // e
 PROJECT_QUIET_MODE=$(echo "$PROJECT_DEFAULTS" | jq -r '.pipeline.quietMode // empty')
 PROJECT_EXCLUDE_TESTS=$(echo "$PROJECT_DEFAULTS" | jq -r '.pipeline.excludeUnityTests // empty')
 PROJECT_FORCE_COMBINE=$(echo "$PROJECT_DEFAULTS" | jq -r '.pipeline.forceCombineArtifacts // empty')
+PROJECT_LICENSE_TYPE=$(echo "$PROJECT_DEFAULTS" | jq -r '.pipeline.licenseType // empty')
 
 ACTION_USE_GIT_LFS=$(echo "$ACTION_DEFAULTS" | jq -r '.pipeline.useGitLfs // empty')
 ACTION_QUIET_MODE=$(echo "$ACTION_DEFAULTS" | jq -r '.pipeline.quietMode // empty')
 ACTION_EXCLUDE_TESTS=$(echo "$ACTION_DEFAULTS" | jq -r '.pipeline.excludeUnityTests // empty')
 ACTION_FORCE_COMBINE=$(echo "$ACTION_DEFAULTS" | jq -r '.pipeline.forceCombineArtifacts // empty')
+ACTION_LICENSE_TYPE=$(echo "$ACTION_DEFAULTS" | jq -r '.pipeline.licenseType // empty')
 
 # Helper: first non-empty, must be “true” or “false”
 resolve_flag() {
@@ -46,11 +48,32 @@ resolve_flag() {
   done
   echo "false"
 }
+resolve_license_type() {
+  local input_val="$1" repo_val="$2" proj_val="$3" act_val="$4"
+
+  for val in "$input_val" "$repo_val" "$proj_val" "$act_val"; do
+    if [[ -n "$val" ]]; then
+      case "${val,,}" in
+        personal|professional)
+          echo "${val,,}"
+          return
+          ;;
+        *)
+          echo "⚠️ Invalid licenseType: $val" >&2
+          ;;
+      esac
+    fi
+  done
+
+  # Safe fallback
+  echo "personal"
+}
 
 USE_GIT_LFS=$(resolve_flag "$USE_GIT_LFS_INPUT" "$USE_GIT_LFS_REPO_VAR" "$PROJECT_USE_GIT_LFS" "$ACTION_USE_GIT_LFS" "useGitLfs")
 QUIET_MODE=$(resolve_flag "$QUIET_MODE_INPUT" "$QUIET_MODE_REPO_VAR" "$PROJECT_QUIET_MODE" "$ACTION_QUIET_MODE" "quietMode")
 EXCLUDE_TESTS=$(resolve_flag "$EXCLUDE_UNITY_TESTS_INPUT" "$EXCLUDE_UNITY_TESTS_REPO_VAR" "$PROJECT_EXCLUDE_TESTS" "$ACTION_EXCLUDE_TESTS" "excludeUnityTests")
 FORCE_COMBINE=$(resolve_flag "$FORCE_COMBINE_ARTIFACTS_INPUT" "$FORCE_COMBINE_ARTIFACTS_REPO_VAR" "$PROJECT_FORCE_COMBINE" "$ACTION_FORCE_COMBINE" "forceCombineArtifacts")
+LICENSE_TYPE=$(resolve_license_type   "$LICENSE_TYPE_INPUT" "$LICENSE_TYPE_REPO_VAR" "$PROJECT_LICENSE_TYPE" "$ACTION_LICENSE_TYPE")
 
 # Export outputs
 {
@@ -58,6 +81,7 @@ FORCE_COMBINE=$(resolve_flag "$FORCE_COMBINE_ARTIFACTS_INPUT" "$FORCE_COMBINE_AR
   echo "quietMode=$QUIET_MODE"
   echo "excludeUnityTests=$EXCLUDE_TESTS"
   echo "forceCombineArtifacts=$FORCE_COMBINE"
+  echo "licenseType=$LICENSE_TYPE"
 } >> "$GITHUB_OUTPUT"
 
 echo "✅ CI options resolved."

@@ -8,6 +8,7 @@
   "pipeline": {
     "useGitLfs": false,
     "quietMode": false,
+    "licenseType": "personal",
     "excludeUnityTests": false,
     "forceCombineArtifacts": false
   },
