@@ -78,7 +78,7 @@ jobs:
       has_playmode: ${{ steps.detect.outputs.has_playmode }}
     steps:
       - id: detect
-        uses: dunxter/unity-ci-cd/.github/actions/detect-tests-existence@main
+        uses: avalin/unity-ci-cd/.github/actions/detect-tests-existence@main
         with:
           editModePath: ${{ inputs.editModePath }}
           playModePath: ${{ inputs.playModePath }}

@@ -118,7 +118,7 @@ jobs:
 
       - name: ⏳ Prepare Metadata
         id: metadata
-        uses: actions/prepare-metadata@main
+        uses: avalin/unity-ci-cd/.github/actions/prepare-metadata@main
         with:
           artifactSource: build
           projectNameInput: ${{ inputs.projectName }}

@@ -120,25 +120,25 @@ runs:
   steps:
     - name: 📦 Resolve Project Name
       id: project_name
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-project-name@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-project-name@main
       with:
         projectNameInput: ${{ inputs.projectNameInput }}
         projectNameRepoVar: ${{ inputs.projectNameRepoVar }}
 
     - name: 📦 Resolve Unity Version
       id: unity_version
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-unity-version@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-unity-version@main
       with:
         unityVersionInput: ${{ inputs.unityVersionInput }}
         unityVersionRepoVar: ${{ inputs.unityVersionRepoVar }}
 
     - name: 🗄️ Resolve Free Disk Space Checks
       id: free_disk_space
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-free-disk-space-config@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-free-disk-space-config@main
 
     - name: ⚙️ Resolve CI Options
       id: ci_options
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-ci-config@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-ci-config@main
       with:
         useGitLfsInput: ${{ inputs.useGitLfsInput }}
         useGitLfsRepoVar: ${{ inputs.useGitLfsRepoVar }}
@@ -153,7 +153,7 @@ runs:
 
     - name: 📦 Resolve Test Config
       id: test_config
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-test-config@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-test-config@main
       with:
         editModePathInput: ${{ inputs.editModePathInput }}
         editModePathRepoVar: ${{ inputs.editModePathRepoVar }}
@@ -162,13 +162,13 @@ runs:
 
     - name: 📦 Resolve Build Type
       id: build_type
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-build-type@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-build-type@main
       with:
         buildTypeOverride: ${{ inputs.buildTypeInput }}
 
     - name: 📦 Resolve Timeouts
       id: timeouts
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-timeouts@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-timeouts@main
       with:
         timeoutTestsInput: ${{ inputs.timeoutTestsInput }}
         timeoutTestsRepoVar: ${{ inputs.timeoutTestsRepoVar }}
@@ -177,7 +177,7 @@ runs:
 
     - name: 📦 Resolve Retention Days
       id: retention
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-retention-days@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-retention-days@main
       with:
         buildType: ${{ steps.build_type.outputs.buildType }}
         retentionDaysReleaseRepoVar: ${{ inputs.retentionDaysReleaseRepoVar }}
@@ -186,7 +186,7 @@ runs:
 
     - name: 📦 Resolve Build Targets
       id: build_targets
-      uses: dunxter/unity-ci-cd/.github/actions/resolve-build-targets@main
+      uses: avalin/unity-ci-cd/.github/actions/resolve-build-targets@main
       with:
         buildType: ${{ steps.build_type.outputs.buildType }}
         buildTargetsInput: ${{ inputs.buildTargetsInput }}
@@ -194,7 +194,7 @@ runs:
 
     - name: 📦 Resolve Deploy Targets
       id: deploy_targets
-      uses: dunxter/unity-ci-cd/.github/actions/validate-deploy-targets@main
+      uses: avalin/unity-ci-cd/.github/actions/validate-deploy-targets@main
       with:
         buildType: ${{ steps.build_type.outputs.buildType }}
         buildTargets: ${{ steps.build_targets.outputs.buildTargets }}
@@ -202,7 +202,7 @@ runs:
 
     - name: 📦 Analyze Artifact Strategy
       id: artifact_strategy
-      uses: dunxter/unity-ci-cd/.github/actions/analyze-artifact-strategy@main
+      uses: avalin/unity-ci-cd/.github/actions/analyze-artifact-strategy@main
       with:
         deployTargets: ${{ steps.deploy_targets.outputs.deployTargets }}
         artifactSource: ${{ inputs.artifactSource }}

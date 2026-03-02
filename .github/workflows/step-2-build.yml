@@ -124,7 +124,7 @@ jobs:
 
       - name: Resolve Build Profile
         id: resolve_build_profile
-        uses: dunxter/unity-ci-cd/.github/actions/resolve-build-profile@main
+        uses: avalin/unity-ci-cd/.github/actions/resolve-build-profile@main
         with:
           buildTarget: ${{ matrix.buildTarget }}
           buildType: ${{ inputs.buildType }}
@@ -132,7 +132,7 @@ jobs:
 
       - name: Resolve Unity Run Parameters
         id: resolve_run_parameters
-        uses: dunxter/unity-ci-cd/.github/actions/resolve-unity-run-parameters@main
+        uses: avalin/unity-ci-cd/.github/actions/resolve-unity-run-parameters@main
         with:
           buildTarget: ${{ matrix.buildTarget }}
 
