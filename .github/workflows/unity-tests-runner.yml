@@ -83,6 +83,7 @@ jobs:
         run: git lfs pull
 
       - name: Download Unity License Artifact
+        if: inputs.licenseType == 'personal'
         uses: actions/download-artifact@v4
         with:
           name: unity-license
