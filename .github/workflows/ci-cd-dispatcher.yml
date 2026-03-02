@@ -102,7 +102,7 @@ jobs:
 
       - name: Validate Required GitHub Secrets
         run: |
-          LICENSE_TYPE="${{ needs.prepare_metadata.outputs.licenseType }}"
+          LICENSE_TYPE="${{ vars.LICENSE_TYPE }}"
           if [[ -z "$LICENSE_TYPE" ]]; then
             LICENSE_TYPE="personal"
           fi
